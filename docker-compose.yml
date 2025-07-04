@@ -1,0 +1,79 @@
+
+version: '3.8'
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "2181:2181"
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  bms-service-discovery:
+    build: ./bms-service-discovery
+    ports:
+      - "8761:8761"
+
+  bms-api-gateway-service:
+    build: ./bms-api-gateway-service
+    ports:
+      - "8080:8080"
+    depends_on:
+      - bms-service-discovery
+
+  bms-user-service:
+    build: ./bms-user-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mongodb
+
+  bms-movie-service:
+    build: ./bms-movie-service
+    ports:
+      - "8082:8082"
+    depends_on:
+      - mongodb
+
+  bms-booking-service:
+    build: ./bms-booking-service
+    ports:
+      - "8083:8083"
+    depends_on:
+      - mongodb
+      - kafka
+
+  bms-messaging-service:
+    build: ./bms-messaging-service
+    ports:
+      - "8084:8084"
+    depends_on:
+      - mongodb
+      - kafka
+
+  bms-payment-service:
+    build: ./bms-payment-service
+    ports:
+      - "8085:8085"
+    depends_on:
+      - mongodb
+      - kafka

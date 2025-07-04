@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Annotation profile for bms-user-service" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
+        </processorPath>
+        <module name="bms-movie-service" />
+        <module name="bms-booking-service" />
+        <module name="bms-messaging-service" />
+        <module name="bms-api-gateway-service" />
+        <module name="bms-service-discovery" />
+        <module name="bms-user-service" />
+        <module name="bms-payment-service" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="17" />
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="bms-api-gateway-service" options="-parameters" />
+      <module name="bms-booking-service" options="-parameters" />
+      <module name="bms-messaging-service" options="-parameters" />
+      <module name="bms-movie-service" options="-parameters" />
+      <module name="bms-payment-service" options="-parameters" />
+      <module name="bms-service-discovery" options="-parameters" />
+      <module name="bms-user-service" options="-parameters" />
+    </option>
+  </component>
+</project>

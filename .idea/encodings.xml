@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/bms-api-gateway-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/bms-booking-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/bms-messaging-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/bms-movie-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/bms-payment-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/bms-service-discovery/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/bms-user-service/src/main/java" charset="UTF-8" />
+  </component>
+</project>
