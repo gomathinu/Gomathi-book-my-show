@@ -1,6 +1,6 @@
 1.Please download project from github
 2.After setting up project along with its requirements like having Apache maven, docker in your local, please do following to build and run the services
-mvn build  (all backend microservices)
+mvn clean package  (all backend microservices)
 docker-compose build
 docker-compose up
 
