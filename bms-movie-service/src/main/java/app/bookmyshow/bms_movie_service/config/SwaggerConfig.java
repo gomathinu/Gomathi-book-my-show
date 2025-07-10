@@ -13,6 +13,6 @@ public class SwaggerConfig {
                 .info(new Info()
                 .title("Movie Service API")
                 .version("1.0")
-                .description("API for managing movies in BookMyShow"));
+                .description("API for managing movie show cinema details in BookMyShow"));
     }
 }

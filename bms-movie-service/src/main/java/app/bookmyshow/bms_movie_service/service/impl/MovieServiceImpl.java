@@ -9,6 +9,8 @@ import app.bookmyshow.bms_movie_service.repository.CinemaMovieShowRepository;
 import app.bookmyshow.bms_movie_service.repository.ShowRepository;
 import app.bookmyshow.bms_movie_service.service.MovieService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,9 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class MovieServiceImpl implements MovieService {
+
+    private static final Logger log = LoggerFactory.getLogger(MovieServiceImpl.class);
+
     @Autowired
     private final MovieRepository movieRepository;
     @Autowired
@@ -71,9 +76,11 @@ public class MovieServiceImpl implements MovieService {
             if (seatNumbersToLock.contains(seat.getSeatNumber())) {
                 if (!seat.isAvailable()) {
                     // Seat already booked
+                    log.debug("Seat chosen is already booked: {}",seat.getSeatNumber());
                     return false;
                 }
                 // Lock seat
+                log.debug("Seat chosen is available: {}",seat.getSeatNumber());
                 seat.setAvailable(false);
             }
             updatedSeats.add(seat);
