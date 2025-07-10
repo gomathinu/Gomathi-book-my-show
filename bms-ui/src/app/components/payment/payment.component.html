@@ -1,0 +1,5 @@
+<form (ngSubmit)="pay()">
+  <input [(ngModel)]="paymentDetails.bookingId" name="bookingId" placeholder="Booking ID" />
+  <input [(ngModel)]="paymentDetails.amount" name="amount" type="number" />
+  <button type="submit">Pay</button>
+</form>

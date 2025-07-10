@@ -1,0 +1,12 @@
+# Step 1: Build Angular App
+FROM node:20-alpine as builder
+WORKDIR /app
+COPY . .
+RUN npm install
+RUN npm run build --configuration production
+
+# Step 2: Serve using Nginx
+FROM nginx:alpine
+COPY --from=builder /app/dist/bms-ui /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/nginx.conf
+EXPOSE 80

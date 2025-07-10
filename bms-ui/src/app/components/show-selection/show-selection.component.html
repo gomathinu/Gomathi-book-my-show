@@ -1,0 +1,7 @@
+<input [(ngModel)]="movie" name="movie" placeholder="Movie" />
+<input [(ngModel)]="cinema" name="cinema" placeholder="Cinema" />
+<button (click)="getShows()">Get Shows</button>
+
+<ul>
+  <li *ngFor="let show of shows">{{ show.time }}</li>
+</ul>

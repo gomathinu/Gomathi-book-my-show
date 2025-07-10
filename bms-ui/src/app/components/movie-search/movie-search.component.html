@@ -1,0 +1,8 @@
+<form (ngSubmit)="search()">
+  <input [(ngModel)]="city" name="city" placeholder="Enter City" />
+  <button>Search Movies</button>
+</form>
+
+<div *ngFor="let movie of movies">
+  {{ movie.name }}
+</div>

@@ -1,0 +1,16 @@
+<div class="seat-selection-form">
+  <h2>Lock Seats</h2>
+
+  <label>Show ID:</label>
+  <input type="number" [(ngModel)]="showId" name="showId" placeholder="Enter Show ID" />
+
+  <label>Seat Numbers (comma-separated):</label>
+  <input type="text" [(ngModel)]="seatNumbersInput" name="seatNumbers" placeholder="E.g. A1, A2, B3" />
+
+  <label>User ID:</label>
+  <input type="number" [(ngModel)]="userId" name="userId" placeholder="Enter User ID" />
+
+  <button (click)="lockSeats()">Lock Seats</button>
+
+  <p class="status">{{ lockStatus }}</p>
+</div>
