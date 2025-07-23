@@ -17,13 +17,13 @@ public class PaymentListener {
 
     private final BookingService bookingService;
 
-    @KafkaListener(topics = "payment-success", groupId = "booking-group")
+    @KafkaListener(topics = "payment-success", groupId = "payment-group")
     public void onPaymentSuccess(Map<String, Object> event) {
         log.info("PaymentListener: onPaymentSuccess() is called");
         bookingService.handlePaymentSuccess(event);
     }
 
-    @KafkaListener(topics = "payment-failed", groupId = "booking-group")
+    @KafkaListener(topics = "payment-failed", groupId = "payment-group")
     public void onPaymentFailure(Map<String, Object> event) {
         log.info("PaymentListener: onPaymentFailure() is called");
         bookingService.handlePaymentFailure(event);

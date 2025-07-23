@@ -52,7 +52,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public Booking confirmBooking(Integer bookingId) {
-        var booking = repository.findById(bookingId)
+        var booking = repository.findByBookingId(bookingId)
                 .orElseThrow(() -> new RuntimeException("Booking not found"));
         booking.setStatus(BookingStatus.CONFIRMED);
         return repository.save(booking);
@@ -60,7 +60,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public Booking cancelBooking(Integer bookingId) {
-        var booking = repository.findById(bookingId)
+        var booking = repository.findByBookingId(bookingId)
                 .orElseThrow(() -> new RuntimeException("Booking not found"));
         booking.setStatus(BookingStatus.CANCELLED);
         return repository.save(booking);

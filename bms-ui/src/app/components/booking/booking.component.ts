@@ -1,10 +1,15 @@
 import { Component } from '@angular/core';
 import { BookingService } from '../../services/booking.service';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-booking',
   templateUrl: './booking.component.html',
-  styleUrls: ['./booking.component.less']
+  styleUrls: ['./booking.component.less'],
+  standalone: true,
+  imports: [FormsModule,CommonModule,RouterModule]
 })
 export class BookingComponent {
   bookingData = { userId: '', showId: '', seats: [] };

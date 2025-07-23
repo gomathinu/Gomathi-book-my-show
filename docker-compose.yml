@@ -2,15 +2,17 @@
 version: '3.8'
 services:
   zookeeper:
-    image: confluentinc/cp-zookeeper:latest
+    image: confluentinc/cp-zookeeper:7.5.0
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
     ports:
       - "2181:2181"
+    networks:
+      - bms-net
 
   kafka:
-    image: confluentinc/cp-kafka:latest
+    image: confluentinc/cp-kafka:7.5.0
     depends_on:
       - zookeeper
     ports:
@@ -18,8 +20,12 @@ services:
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      #KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    networks:
+      - bms-net
 
   mongodb:
     image: mongo
@@ -27,11 +33,15 @@ services:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
+    networks:
+      - bms-net
 
   bms-service-discovery:
     build: ./bms-service-discovery
     ports:
       - "8761:8761"
+    networks:
+      - bms-net
 
   bms-api-gateway-service:
     build: ./bms-api-gateway-service
@@ -39,6 +49,8 @@ services:
       - "8080:8080"
     depends_on:
       - bms-service-discovery
+    networks:
+      - bms-net
 
   bms-user-service:
     build: ./bms-user-service
@@ -46,6 +58,8 @@ services:
       - "8081:8081"
     depends_on:
       - mongodb
+    networks:
+      - bms-net
 
   bms-movie-service:
     build: ./bms-movie-service
@@ -53,6 +67,8 @@ services:
       - "8082:8082"
     depends_on:
       - mongodb
+    networks:
+      - bms-net
 
   bms-booking-service:
     build: ./bms-booking-service
@@ -61,6 +77,8 @@ services:
     depends_on:
       - mongodb
       - kafka
+    networks:
+      - bms-net
 
   bms-messaging-service:
     build: ./bms-messaging-service
@@ -69,6 +87,8 @@ services:
     depends_on:
       - mongodb
       - kafka
+    networks:
+      - bms-net
 
   bms-payment-service:
     build: ./bms-payment-service
@@ -77,11 +97,23 @@ services:
     depends_on:
       - mongodb
       - kafka
+    networks:
+      - bms-net
 
-  #bms-ui:
-    #build: ./bms-ui
-    #ports:
-      #- "4200:80"
+  bms-ui:
+    build:
+      context: ./bms-ui
+    ports:
+      - "4200:80"
+    container_name: bms-ui
+    depends_on:
+      - bms-api-gateway-service
+    networks:
+      - bms-net
+
+networks:
+   bms-net:
+     driver: bridge
 
 volumes:
   mongo_data:

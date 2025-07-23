@@ -1,10 +1,15 @@
 import { Component } from '@angular/core';
 import { MovieService, SeatLockRequest } from '../../services/movie.service';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-seat-selection',
   templateUrl: './seat-selection.component.html',
-  styleUrls: ['./seat-selection.component.less']
+  styleUrls: ['./seat-selection.component.less'],
+  standalone: true,
+  imports: [FormsModule,CommonModule,RouterModule]
 })
 export class SeatSelectionComponent {
 

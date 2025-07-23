@@ -10,7 +10,7 @@ import { SeatSelectionComponent } from './components/seat-selection/seat-selecti
 import { BookingComponent } from './components/booking/booking.component';
 import { PaymentComponent } from './components/payment/payment.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: '', redirectTo: 'movies', pathMatch: 'full' },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },

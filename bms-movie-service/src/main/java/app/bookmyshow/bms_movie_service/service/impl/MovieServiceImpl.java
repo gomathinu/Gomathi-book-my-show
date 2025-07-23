@@ -66,7 +66,7 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public boolean lockSeats(Integer showId, List<String> seatNumbersToLock) {
-        Optional<Show> showOpt = showRepository.findById(showId);
+        Optional<Show> showOpt = showRepository.findByShowId(showId);
         if (showOpt.isEmpty()) return false;
         Show show = showOpt.get();
         List<Seat> seats = show.getSeatList();

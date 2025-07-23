@@ -18,6 +18,6 @@ import java.util.List;
 @Builder
 public class City {
     @Id
-    private String cityId;
+    private Integer cityId;
     private String cityName;
 }

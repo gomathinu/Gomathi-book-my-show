@@ -20,7 +20,7 @@ public class BookingConfirmedUser {
     @Autowired
     private final MessagingService messagingService;
 
-    @KafkaListener(topics = "booking-confirmed", groupId = "notification-group")
+    @KafkaListener(topics = "booking-confirmed", groupId = "booking-group")
     public void consume(String message) {
         log.info("Received booking confirmed message: {}", message);
         try {
