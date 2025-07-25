@@ -46,6 +46,13 @@ public class UserController {
         return ResponseEntity.ok(authService.verifyOtp(request));
     }
 
+    //This is for admin role - to get token on mobile and otp
+    @PostMapping("/getToken")
+    public ResponseEntity<JwtResponse> getToken(@RequestBody VerifyOtpRequest request) {
+        log.info("UserController: getToken() is called");
+        return ResponseEntity.ok(authService.verifyOtp(request));
+    }
+
     //below api is to get user details for messaging service after booking confirmation
     @GetMapping("/getUserDetails/{userId}")
     public ResponseEntity<User> getUserById(@PathVariable String userId) {

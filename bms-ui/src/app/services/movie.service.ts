@@ -16,13 +16,13 @@ export class MovieService {
 
   getMoviesByCity(cityName: string): Observable<any> {
     const params = new HttpParams().set('cityName', cityName);
-    return this.http.get<any[]>(`${this.baseUrl}/movies-by-cinema`, { params });
+    return this.http.get<any[]>(`${this.baseUrl}/movies-by-city`, { params });
   }
 
-  getMoviesByCinema(cinemaName: string): Observable<any> {
+  /*getMoviesByCinema(cinemaName: string): Observable<any> {
     const params = new HttpParams().set('cinemaName', cinemaName);
     return this.http.get<any[]>(`${this.baseUrl}/movies-by-cinema`, { params });
-  }
+  }*/
 
   getShowsByMovieAndCinema(movieName: string, cinemaName: string): Observable<any> {
     const params = new HttpParams();
