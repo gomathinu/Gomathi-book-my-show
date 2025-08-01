@@ -15,7 +15,7 @@ import java.util.List;
 @Builder
 public class Movie {
     @Id
-    private Integer movieId;
+    private String movieId;
     private String title;
     private String genre;
     private String language;

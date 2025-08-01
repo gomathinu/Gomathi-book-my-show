@@ -13,6 +13,8 @@ import java.io.IOException;
 @Configuration
 public class CorrelationIdFilter extends OncePerRequestFilter {
 
+    private static final String MOBILE_HEADER = "X-Mobile";
+
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
@@ -23,6 +25,9 @@ public class CorrelationIdFilter extends OncePerRequestFilter {
             if (correlationId != null) {
                 MDC.put("X-Correlation-ID", correlationId);
             }
+            String mobile = request.getHeader(MOBILE_HEADER);
+            MDC.put(MOBILE_HEADER, mobile);
+            MDC.put("serviceName", "bms-movie-service");
             filterChain.doFilter(request, response);
         } finally {
             MDC.clear();

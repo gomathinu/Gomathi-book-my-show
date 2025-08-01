@@ -18,8 +18,8 @@ import java.time.LocalDateTime;
 public class Payment {
 
     @Id
-    private Integer paymentId;
-    private Integer bookingId;
+    private String paymentId;
+    private String bookingId;
     private String userId;
     private Double amount;
     private PaymentStatus status;

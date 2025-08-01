@@ -5,6 +5,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;
 
-public interface ShowRepository extends MongoRepository<Show, Integer> {
-    Optional<Show> findByShowId(Integer showId);
+public interface ShowRepository extends MongoRepository<Show, String> {
+    Optional<Show> findByShowId(String showId);
 }

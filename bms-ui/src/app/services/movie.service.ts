@@ -10,7 +10,7 @@ export interface SeatLockRequest {
 
 @Injectable({ providedIn: 'root' })
 export class MovieService {
-  private baseUrl = 'http://localhost:8082/bms/movie/movieDetails';
+  private baseUrl = 'http://localhost:8080/bms/movie/movieDetails';
 
   constructor(private http: HttpClient) {}
 

@@ -28,7 +28,7 @@ public interface MovieService {
 
     public List<Show> getShowsByMovieCinema(String movieName, String cinemaName);
 
-    public List<Seat> getSeatsByShowId(Integer showId);
+    public List<Seat> getSeatsByShowId(String showId);
 
-    public boolean lockSeats(Integer showId, List<String> seatNumbersToLock);
+    public boolean lockSeats(String showId, List<String> seatNumbersToLock);
 }

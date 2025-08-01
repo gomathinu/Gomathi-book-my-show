@@ -18,6 +18,7 @@ public class CorrelationIdFilter implements GlobalFilter, Ordered {
 
     private static final Logger log = LoggerFactory.getLogger(CorrelationIdFilter.class);
     private static final String CORRELATION_ID_HEADER = "X-Correlation-ID";
+    private static final String MOBILE_HEADER = "X-Mobile";
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
@@ -26,10 +27,14 @@ public class CorrelationIdFilter implements GlobalFilter, Ordered {
         if (correlationId == null) {
             correlationId = UUID.randomUUID().toString();
         }
+        String mobile = request.getHeaders().getFirst(MOBILE_HEADER);
         // Add correlation id to MDC Mapped Diagnostic Context for logging for identifying each service in a call trace
         MDC.put(CORRELATION_ID_HEADER, correlationId);
+        MDC.put(MOBILE_HEADER, mobile);
+        MDC.put("serviceName", "bms-api-gateway-service");
         ServerHttpRequest mutatedRequest = request.mutate()
                 .header(CORRELATION_ID_HEADER, correlationId)
+                .header(MOBILE_HEADER, mobile)
                 .build();
         return chain.filter(exchange.mutate().request(mutatedRequest).build())
                 .doFinally(signal -> MDC.clear());

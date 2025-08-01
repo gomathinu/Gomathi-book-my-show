@@ -10,5 +10,5 @@ public interface CinemaMovieShowRepository {
     public List<Movie> getMoviesByCityName(String cityName);
     public List<Movie> getMoviesByCinemaName(String cinemaName);
     public List<Show> getShowsByMovieAndCinema(String movieName, String cinemaName);
-    public List<Seat> getSeatsByShowId(Integer showId);
+    public List<Seat> getSeatsByShowId(String showId);
 }

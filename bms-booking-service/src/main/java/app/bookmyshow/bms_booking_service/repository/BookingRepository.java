@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface BookingRepository extends MongoRepository<Booking, Integer> {
-    Optional<Booking> findByBookingId(Integer bookingId);
+public interface BookingRepository extends MongoRepository<Booking, String> {
+    Optional<Booking> findByBookingId(String bookingId);
 }

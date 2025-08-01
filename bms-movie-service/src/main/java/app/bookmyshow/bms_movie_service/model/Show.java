@@ -20,11 +20,13 @@ import java.util.List;
 @Builder
 public class Show {
     @Id
-    private Integer showId;
+    private String showId;
     private LocalDateTime startTime;
     private List<Seat> seatList;
     @Transient
     private Movie movie;
+    private String movieId;
     @Transient
     private Cinema cinema;
+    private String cinemaId;
 }

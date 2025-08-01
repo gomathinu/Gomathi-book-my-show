@@ -1,13 +1,12 @@
 <configuration>
     <property name="LOG_PATTERN"
-              value="%d{yyyy-MM-dd HH:mm:ss} [%X{X-Correlation-ID}] %-5level %logger{36} - %msg%n"/>
-
+              value="%d{yyyy-MM-dd HH:mm:ss} [corrId=%X{X-Correlation-ID}] [mobile=%X{mobile}] [service=%X{serviceName}] %-5level %logger{36} - %msg%n"/>
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>${LOG_PATTERN}</pattern>
         </encoder>
     </appender>
-
+    <!--
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>logs/app.log</file>
         <encoder>
@@ -18,9 +17,9 @@
             <maxHistory>30</maxHistory>
         </rollingPolicy>
     </appender>
-
+    -->
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="FILE"/>
+        <!--<appender-ref ref="FILE"/>-->
     </root>
 </configuration>

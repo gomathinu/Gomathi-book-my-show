@@ -13,16 +13,22 @@ import java.io.IOException;
 @Configuration
 public class CorrelationIdFilter extends OncePerRequestFilter {
 
+    private static final String CORRELATION_ID_HEADER = "X-Correlation-ID";
+    private static final String MOBILE_HEADER = "X-Mobile";
+
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain)
             throws ServletException, IOException {
         try {
-            String correlationId = request.getHeader("X-Correlation-ID");
+            String correlationId = request.getHeader(CORRELATION_ID_HEADER);
             if (correlationId != null) {
-                MDC.put("X-Correlation-ID", correlationId);
+                MDC.put(CORRELATION_ID_HEADER, correlationId);
             }
+            String mobile = request.getHeader(MOBILE_HEADER);
+            MDC.put(MOBILE_HEADER, mobile);
+            MDC.put("serviceName", "bms-booking-service");
             filterChain.doFilter(request, response);
         } finally {
             MDC.clear();

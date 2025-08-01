@@ -18,8 +18,8 @@ import java.util.List;
 @Builder
 public class Seat {
     @Id
-    private Integer seatId;
+    private String seatId;
     private String seatNumber;
     private boolean available;
-    private Integer showId;
+    private String showId;
 }

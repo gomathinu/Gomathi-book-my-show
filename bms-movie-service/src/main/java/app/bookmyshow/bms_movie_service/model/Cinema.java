@@ -19,8 +19,10 @@ import java.util.List;
 @Builder
 public class Cinema {
     @Id
-    private Id cinemaId;
+    private String cinemaId;
     private String cinemaName;
+    private List<Show> showList;
     @Transient
     private City city;
+    private String cityId;
 }

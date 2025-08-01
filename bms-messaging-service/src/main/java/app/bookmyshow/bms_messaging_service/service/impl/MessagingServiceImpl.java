@@ -24,7 +24,7 @@ public class MessagingServiceImpl implements MessagingService {
     private final JavaMailSender mailSender;
 
     @Override
-    public void sendBookingSuccessMessage(Integer bookingId, String userId) {
+    public void sendBookingSuccessMessage(String bookingId, String userId) {
         // REST Call to User Service to fetch email and phone
         String userServiceUrl = "http://localhost:8081/bms/user/userDetails/getUserDetails" + userId;
         User user = restTemplate.getForObject(userServiceUrl, User.class);

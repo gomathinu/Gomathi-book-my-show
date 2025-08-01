@@ -18,6 +18,7 @@ export class VerifyOtpComponent {
   constructor(private userService: UserService) {}
 
   verify() {
+    localStorage.setItem('mobile',this.mobile);
     this.userService.verifyOtp(this.mobile, this.otp).subscribe(response => {
       localStorage.setItem('token', response.token);
     });

@@ -24,6 +24,14 @@ public class JwtAuthenticationFilter implements GatewayFilter {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        //temp
+        String path = exchange.getRequest().getURI().getPath();
+        log.info("Path url : {}", path);
+        if (path.contains("/getToken") || path.contains("/login") || path.contains("/register") || path.contains("/verify-otp")) {
+            log.info("Skipping JWT filter for prelogin url : {}", path);
+            return chain.filter(exchange);
+        }
+        //temp
         ServerHttpRequest request = exchange.getRequest();
         String authHeader = request.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {

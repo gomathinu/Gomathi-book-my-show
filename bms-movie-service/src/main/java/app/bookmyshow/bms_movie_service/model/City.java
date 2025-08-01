@@ -18,6 +18,7 @@ import java.util.List;
 @Builder
 public class City {
     @Id
-    private Integer cityId;
+    private String cityId;
     private String cityName;
+    private List<Cinema> cinemaList;
 }

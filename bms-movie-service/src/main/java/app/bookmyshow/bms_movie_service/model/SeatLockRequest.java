@@ -10,6 +10,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SeatLockRequest {
-    private Integer showId;
+    private String showId;
     private List<String> seats;
 }

@@ -26,7 +26,7 @@ public class BookingConfirmedUser {
         try {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode node = mapper.readTree(message);
-            Integer bookingId = node.get("bookingId").asInt();
+            String bookingId = node.get("bookingId").toString();
             String userId = node.get("userId").toString();
             messagingService.sendBookingSuccessMessage(bookingId, userId);
         } catch (Exception e) {

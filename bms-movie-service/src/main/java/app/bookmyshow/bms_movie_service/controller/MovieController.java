@@ -50,7 +50,7 @@ public class MovieController {
     }
 
     @GetMapping("/seats-by-show")
-    public ResponseEntity<List<Seat>> getSeatsByShow(@RequestParam Integer showId) {
+    public ResponseEntity<List<Seat>> getSeatsByShow(@RequestParam String showId) {
         log.info("MovieController: getSeatsByShow() is called");
         return ResponseEntity.ok(movieService.getSeatsByShowId(showId));
     }
@@ -60,5 +60,12 @@ public class MovieController {
         log.info("MovieController: lockSeats() is called");
         boolean locked = movieService.lockSeats(request.getShowId(), request.getSeats());
         return ResponseEntity.ok(locked);
+    }
+
+    @GetMapping("/test")
+    public String test() {
+        System.out.println("Test UserController test() is called");
+        log.info("Test UserController test() is called");
+        return "Hello from Movie Service!";
     }
 }

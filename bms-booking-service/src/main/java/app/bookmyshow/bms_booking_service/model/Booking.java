@@ -18,9 +18,9 @@ import java.util.List;
 @Builder
 public class Booking {
     @Id
-    private Integer bookingId;
+    private String bookingId;
     private String userId;
-    private Integer showId;
+    private String showId;
     private List<String> seatNumbers;
     private Double totalAmount;
     private BookingStatus status;

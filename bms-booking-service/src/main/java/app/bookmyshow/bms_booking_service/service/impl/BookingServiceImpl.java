@@ -51,7 +51,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public Booking confirmBooking(Integer bookingId) {
+    public Booking confirmBooking(String bookingId) {
         var booking = repository.findByBookingId(bookingId)
                 .orElseThrow(() -> new RuntimeException("Booking not found"));
         booking.setStatus(BookingStatus.CONFIRMED);
@@ -59,7 +59,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public Booking cancelBooking(Integer bookingId) {
+    public Booking cancelBooking(String bookingId) {
         var booking = repository.findByBookingId(bookingId)
                 .orElseThrow(() -> new RuntimeException("Booking not found"));
         booking.setStatus(BookingStatus.CANCELLED);
@@ -68,7 +68,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public void handlePaymentSuccess(Map<String, Object> event) {
-        Integer bookingId = (Integer) event.get("bookingId");
+        String bookingId = (String) event.get("bookingId");
         String userId = (String) event.get("userId");
         confirmBooking(bookingId);
         // Notify messaging service
@@ -81,7 +81,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public void handlePaymentFailure(Map<String, Object> event) {
-        Integer bookingId = (Integer) event.get("bookingId");
+        String bookingId = (String) event.get("bookingId");
         cancelBooking(bookingId);
     }
 }
