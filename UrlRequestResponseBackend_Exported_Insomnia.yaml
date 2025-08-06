@@ -1,0 +1,612 @@
+type: collection.insomnia.rest/5.0
+name: BookMyShow API Collection
+meta:
+  id: wrk_7da1439ce1f441199daba3a1039987aa
+  created: 1751381243588
+  modified: 1751381243588
+  description: ""
+collection:
+  - name: bms-user-service
+    meta:
+      id: fld_14b1d9cc97ea4688a9abafb042b90eae
+      created: 1753785647980
+      modified: 1754473895742
+      sortKey: -1753785647980
+      description: ""
+    children:
+      - url: http://localhost:8080/bms/user/userDetails/getToken
+        name: getToken
+        meta:
+          id: req_ea220c4abe574c35a0c55f65720d04b2
+          created: 1753456185020
+          modified: 1754291908511
+          isPrivate: false
+          description: ""
+          sortKey: -1753785661355
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"mobile":"9876543210",
+            	"otp":"123456"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+            id: pair_72493975bd54431390735fdefee67ede
+          - name: User-Agent
+            value: insomnia/11.2.0
+            id: pair_deefaabce6e9491e991d7baa3fc6ffc5
+        scripts:
+          afterResponse: >-
+            module.exports = async function (context) {
+              try {
+                const bodyText = await context.response.getBody();
+                const json = JSON.parse(bodyText);
+                const token =
+                  json.jwtToken || json.token || json.access_token || json.data?.jwt || json.data?.token;
+                if (token) {
+                  await context.store.setEnvironmentVariable("jwt_token", token);
+                  console.log("Saved JWT:", token);
+                } else {
+                  console.log("JWT not found in response:", json);
+                }
+              } catch (err) {
+                console.log("Error parsing response or setting token:", err);
+              }
+            };
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/bms/user/userDetails/register
+        name: register
+        meta:
+          id: req_8bd0a2c750c24741a325b506929f3c24
+          created: 1753795209691
+          modified: 1753853005341
+          isPrivate: false
+          description: ""
+          sortKey: -1753785661305
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"mobile":"9999911111",
+            	"email":"test@gmail.com"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.2.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/bms/user/userDetails/login
+        name: login
+        meta:
+          id: req_470528af6f354ae1965d2c5fb1225b47
+          created: 1753795216942
+          modified: 1753852999030
+          isPrivate: false
+          description: ""
+          sortKey: -1753785661330
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"mobile":"9876543210"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.2.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/bms/user/userDetails/verify-otp
+        name: verify-otp
+        meta:
+          id: req_09785c6602f04b8cb1821bea96aa2c47
+          created: 1753795253479
+          modified: 1753852986997
+          isPrivate: false
+          description: ""
+          sortKey: -1753785661342.5
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"mobile":"9876543210",
+            	"otp":"123456"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.2.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/bms/user/userDetails/getUserDetails/1
+        name: getUserDetails
+        meta:
+          id: req_106a067b2f064d60a88bb0586e228e0b
+          created: 1753795279077
+          modified: 1754283897185
+          isPrivate: false
+          description: ""
+          sortKey: -1753785661348.75
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.2.0
+            id: pair_8475364afdf44fff82607dd8c45b0562
+          - id: pair_9e646fbadf9c4dbab853959ce46703d3
+            name: Authorization
+            value: Bearer {{jwt_token}}
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8081/userDetails/getToken
+        name: getToken userService
+        meta:
+          id: req_6a457ffd838a42e9a631be89f583c6a1
+          created: 1753802557097
+          modified: 1754283727529
+          isPrivate: false
+          description: ""
+          sortKey: -1753785661353.4375
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"mobile":"9876543210",
+            	"otp":"123456"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.2.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: bms-movie-service
+    meta:
+      id: fld_bc16084297454b1693f53c16d6743e85
+      created: 1753785674076
+      modified: 1753785674076
+      sortKey: -1753785674076
+      description: ""
+    children:
+      - url: http://localhost:8080/bms/movie/movieDetails/movies-by-cinema
+        name: movies-by-cinema
+        meta:
+          id: req_8c5309da7ff4470eb272bead8c8dd754
+          created: 1753196732271
+          modified: 1754291940730
+          isPrivate: false
+          description: ""
+          sortKey: -1753785723465
+        method: GET
+        parameters:
+          - id: pair_4900f0a801d84614b44a8f2a1ccd3284
+            name: cinemaName
+            value: PVR
+            description: ""
+            disabled: false
+        headers:
+          - name: User-Agent
+            value: insomnia/11.2.0
+            id: pair_080783de225d469ab75aa2dc51c06bb8
+          - id: pair_59351cc7501b488fa688c2087f8994bf
+            name: Authorization
+            value: Bearer {{jwt_token}}
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/bms/movie/movieDetails/movies-by-city
+        name: movies-by-city
+        meta:
+          id: req_f8515449c3c94fa6bb4c75b18fcd20a7
+          created: 1753792582253
+          modified: 1754309391975
+          isPrivate: false
+          description: ""
+          sortKey: -1753785700173.75
+        method: GET
+        parameters:
+          - id: pair_4900f0a801d84614b44a8f2a1ccd3284
+            name: cityName
+            value: Chennai
+            description: ""
+            disabled: false
+        headers:
+          - name: User-Agent
+            value: insomnia/11.2.0
+            id: pair_d9f713c717894f02be36c188ff5211b6
+          - id: pair_e6fbebc9031849e69178fd1d501aa6c9
+            name: Authorization
+            value: Bearer {{jwt_token}}
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/bms/movie/movieDetails/shows-by-movie-cinema
+        name: shows-by-movie-cinema
+        meta:
+          id: req_c5228aa6d27542c6ae5ad856dff0ecdd
+          created: 1753792611579
+          modified: 1754309450764
+          isPrivate: false
+          description: ""
+          sortKey: -1753785707937.5
+        method: GET
+        parameters:
+          - id: pair_4900f0a801d84614b44a8f2a1ccd3284
+            name: cinemaName
+            value: PVR
+            description: ""
+            disabled: false
+          - id: pair_f26cc0141c2048039138cc8df963fddc
+            name: movieName
+            value: Sita Ramam
+            description: ""
+            disabled: false
+        headers:
+          - name: User-Agent
+            value: insomnia/11.2.0
+            id: pair_ce0d287cd8364f39956d12c888ad4b5b
+          - id: pair_4d4fdafad3864019ac6605fb049e7535
+            name: Authorization
+            value: Bearer {{jwt_token}}
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/bms/movie/movieDetails/seats-by-show
+        name: seats-by-show
+        meta:
+          id: req_65dde83c5a0d47249a9e72aa90bf2be8
+          created: 1753792623056
+          modified: 1754309502111
+          isPrivate: false
+          description: ""
+          sortKey: -1753785715701.25
+        method: GET
+        parameters:
+          - id: pair_4900f0a801d84614b44a8f2a1ccd3284
+            name: showId
+            value: 68885d987c184ee18ebaa8b9
+            description: ""
+            disabled: false
+        headers:
+          - name: User-Agent
+            value: insomnia/11.2.0
+            id: pair_71f5c5383774495e87d90f1aad6eb066
+          - id: pair_d04c93899c634d8fa79b1dc161685536
+            name: Authorization
+            value: Bearer {{jwt_token}}
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/bms/movie/movieDetails/lock-seats
+        name: lock-seats
+        meta:
+          id: req_fe3cc869fa2340989a33dab3d2be0751
+          created: 1753794589085
+          modified: 1754284235657
+          isPrivate: false
+          description: ""
+          sortKey: -1753785719583.125
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"showId":1,
+            	"seats":["A1","A2"]
+            }
+        parameters:
+          - id: pair_83a6a26dbc424ce288211edafaa26d76
+            name: ""
+            value: ""
+            description: ""
+            disabled: false
+        headers:
+          - name: Content-Type
+            value: application/json
+            id: pair_809785d15afd4d5f81d6e463da2578e6
+          - name: User-Agent
+            value: insomnia/11.2.0
+            id: pair_3e51f2cdeeb0462aa95b1d71232d3680
+          - id: pair_3c1a1d20df5b4269bbf830e010b92ef1
+            name: Authorization
+            value: Bearer {{jwt_token}}
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/bms/movie/movieDetails/addMovie
+        name: addMovie
+        meta:
+          id: req_a7f5ab08fc144a868be1dde56fde2721
+          created: 1753794621043
+          modified: 1754283958450
+          isPrivate: false
+          description: ""
+          sortKey: -1753785721524.0625
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "movieId": 103,
+              "title": "Inception",
+              "genre": "Science Fiction",
+              "language": "English",
+              "description": "Thriller movie on multi dimensions",
+              "cast": ["Leonardo DiCaprio"],
+              "crew": ["Christopher Nolan"],
+              "releaseAfter": "2010-07-16",
+              "page": 0,
+              "size": 10,
+              "sortBy": "releaseDate",
+              "sortDir": "asc"
+            }
+        parameters:
+          - id: pair_b528e1b35e4a4072a7679f50e5362a23
+            name: ""
+            value: ""
+            description: ""
+            disabled: false
+        headers:
+          - name: Content-Type
+            value: application/json
+            id: pair_b493d1e30136447b9802506f6b8f48a5
+          - name: User-Agent
+            value: insomnia/11.2.0
+            id: pair_f47460e8935448f8acb41d2aeced9420
+          - id: pair_75783ad5bfc841e4b655657aeaaab48f
+            name: Authorization
+            value: Bearer {{jwt_token}}
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8082/movieDetails/movies-by-cinema
+        name: movies-by-cinema movieService
+        meta:
+          id: req_af63fa8f604a42caae3063db75c7aa08
+          created: 1754286576143
+          modified: 1754286598049
+          isPrivate: false
+          description: ""
+          sortKey: -1753785722494.5312
+        method: GET
+        parameters:
+          - id: pair_4900f0a801d84614b44a8f2a1ccd3284
+            name: cinemaName
+            value: PVR
+            description: ""
+            disabled: false
+        headers:
+          - name: User-Agent
+            value: insomnia/11.2.0
+            id: pair_080783de225d469ab75aa2dc51c06bb8
+          - id: pair_59351cc7501b488fa688c2087f8994bf
+            name: Authorization
+            value: Bearer {{jwt_token}}
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: bms-booking-service
+    meta:
+      id: fld_c99a4c7191e7435bb26e9fe28466bd68
+      created: 1753785683660
+      modified: 1753791629034
+      sortKey: -1753785683660
+      description: ""
+    children:
+      - url: http://localhost:8080/bms/booking/bookingDetails/initiateBooking
+        name: initiateBooking
+        meta:
+          id: req_ac9622733a594990992412d83d354644
+          created: 1753791658393
+          modified: 1754316044588
+          isPrivate: false
+          description: ""
+          sortKey: -1753791658393
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"bookingId":"1",
+            	"userId":"1",
+            	"showId":"1",
+            	"seatNumbers":["A1","A2"],
+            	"totalAmount":"200",
+            	"status":"PENDING",
+            	"createdAt":""
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+            id: pair_0d8b0ae1f861422aa12b04b7d4dbfaed
+          - name: User-Agent
+            value: insomnia/11.2.0
+            id: pair_af976dcb638746158b238e924fd60bc4
+          - id: pair_f113bd9788bd456eb9b8278dbe050e57
+            name: Authorization
+            value: Bearer {{jwt_token}}
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: bms-payment-service
+    meta:
+      id: fld_89d8078760424461a27e3f9e67500d70
+      created: 1753785693620
+      modified: 1753791309907
+      sortKey: -1753785693620
+      description: ""
+    children:
+      - url: http://localhost:8080/bms/payment/paymentDetails/initiatePayment
+        name: initiatePayment
+        meta:
+          id: req_a92578f5af454061bfabe046801f9e7e
+          created: 1753791335174
+          modified: 1754285590103
+          isPrivate: false
+          description: ""
+          sortKey: -1753791335174
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"paymentId":1,
+            	"bookingId":1,
+            	"userId":"1",
+            	"amount":200.0,
+            	"status":"SUCCESS",
+            	"method":"CARD",
+            	"timestamp":"2025-07-29T18:15:00"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+            id: pair_3fec80aeaa3f4bf787b2d6c1f61fed9b
+          - name: User-Agent
+            value: insomnia/11.2.0
+            id: pair_44a64bb2ada849b0a2f8a3617c145839
+          - id: pair_5732682b4c7a4442b79a5be2432f231c
+            name: Authorization
+            value: Bearer {{jwt_token}}
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_04f6ab7a0567298f478a6ad19e1109c2d0cb0d68
+    created: 1751381243677
+    modified: 1754473895725
+  cookies:
+    - id: ffd0c65f-a3f0-414a-a2f5-24e38a5fd5bb
+      key: JSESSIONID
+      value: 49AD45463C248D1EE6C4376E0A7614FA
+      domain: localhost
+      path: /
+      secure: false
+      httpOnly: true
+      creation: 2025-07-25T16:17:41.868Z
+      hostOnly: true
+      lastAccessed: 2025-07-31T04:36:21.411Z
+environments:
+  name: Base Environment
+  meta:
+    id: env_04f6ab7a0567298f478a6ad19e1109c2d0cb0d68
+    created: 1751381243668
+    modified: 1754473895735
+    isPrivate: false
+  data:
+    "": ""
