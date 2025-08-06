@@ -1,23 +1,39 @@
-import { Component } from '@angular/core';
-import { MovieService } from '../../services/movie.service';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
+import { MovieService } from '../../services/movie.service';
 
 @Component({
   selector: 'app-movie-search',
-  templateUrl: './movie-search.component.html',
-  styleUrls: ['./movie-search.component.less'],
   standalone: true,
-  imports: [FormsModule,CommonModule,RouterModule]
+  imports: [CommonModule],
+  templateUrl: './movie-search.component.html',
+  styleUrls: ['./movie-search.component.less']
 })
-export class MovieSearchComponent {
-  city = '';
+export class MovieSearchComponent implements OnInit {
+  cities = ['Chennai', 'Mumbai', 'Bangalore'];
+  selectedCity = '';
   movies: any[] = [];
 
-  constructor(private movieService: MovieService) {}
+  constructor(private movieService: MovieService, private router: Router) {}
 
-  search() {
-    this.movieService.getMoviesByCity(this.city).subscribe(data => this.movies = data);
+  ngOnInit(): void {}
+
+  onCitySelect(event: Event): void {
+    const selectedCity = (event.target as HTMLSelectElement)?.value || '';
+    this.selectedCity = selectedCity;
+
+    if (selectedCity) {
+      this.movieService.getMoviesByCity(selectedCity).subscribe((data) => {
+        this.movies = data;
+      });
+    } else {
+      this.movies = [];
+    }
+  }
+
+  selectMovie(movie: any): void {
+    localStorage.setItem('selectedMovieId', movie.id);
+    this.router.navigate(['/shows']);
   }
 }

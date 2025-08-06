@@ -1,25 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { RegisterComponent } from './components/register/register.component';
-import { LoginComponent } from './components/login/login.component';
-import { VerifyOtpComponent } from './components/verify-otp/verify-otp.component';
-import { MovieSearchComponent } from './components/movie-search/movie-search.component';
-import { ShowSelectionComponent } from './components/show-selection/show-selection.component';
-import { SeatSelectionComponent } from './components/seat-selection/seat-selection.component';
-import { BookingComponent } from './components/booking/booking.component';
-import { PaymentComponent } from './components/payment/payment.component';
-
 export const routes: Routes = [
-  { path: '', redirectTo: 'movies', pathMatch: 'full' },
-  { path: 'register', component: RegisterComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'verify-otp', component: VerifyOtpComponent },
-  { path: 'movies', component: MovieSearchComponent },
-  { path: 'shows', component: ShowSelectionComponent },
-  { path: 'seats', component: SeatSelectionComponent },
-  { path: 'booking', component: BookingComponent },
-  { path: 'payment', component: PaymentComponent }
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'register', loadComponent: () => import('./components/register/register.component').then(m => m.RegisterComponent) },
+  { path: 'login', loadComponent: () => import('./components/login/login.component').then(m => m.LoginComponent) },
+  { path: 'verify-otp', loadComponent: () => import('./components/verify-otp/verify-otp.component').then(m => m.VerifyOtpComponent) },
+  { path: 'movies', loadComponent: () => import('./components/movie-search/movie-search.component').then(m => m.MovieSearchComponent) },
+  { path: 'shows', loadComponent: () => import('./components/show-selection/show-selection.component').then(m => m.ShowSelectionComponent) },
+  { path: 'seats', loadComponent: () => import('./components/seat-selection/seat-selection.component').then(m => m.SeatSelectionComponent) },
+  { path: 'booking', loadComponent: () => import('./components/booking/booking.component').then(m => m.BookingComponent) },
+  { path: 'payment', loadComponent: () => import('./components/payment/payment.component').then(m => m.PaymentComponent) }
 ];
 
 @NgModule({

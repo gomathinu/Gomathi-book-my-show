@@ -20,8 +20,8 @@ public class BookingController {
     private final BookingService bookingService;
 
     @PostMapping("/initiateBooking")
-    public ResponseEntity<Booking> initiateBooking(@RequestBody Booking booking) {
+    public ResponseEntity<Booking> initiateBooking(@RequestBody Booking booking,@RequestHeader("Authorization") String token) {
         log.info("BookingController: initiateBooking() is called");
-        return ResponseEntity.ok(bookingService.initiateBooking(booking));
+        return ResponseEntity.ok(bookingService.initiateBooking(booking,token));
     }
 }

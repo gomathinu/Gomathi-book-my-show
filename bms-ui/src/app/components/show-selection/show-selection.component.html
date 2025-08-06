@@ -1,7 +1,6 @@
-<input [(ngModel)]="movie" name="movie" placeholder="Movie" />
-<input [(ngModel)]="cinema" name="cinema" placeholder="Cinema" />
-<button (click)="getShows()">Get Shows</button>
-
-<ul>
-  <li *ngFor="let show of shows">{{ show.time }}</li>
-</ul>
+<div class="shows-grid">
+  <div class="show-card" *ngFor="let show of shows" (click)="selectShow(show)">
+    <!--<h3>{{ cinemaId }}:{{movieId}}</h3> later local storage save n show cinemaName, movie - title field-->
+    <p><strong>Time:</strong> {{ show.startTime }}</p>
+  </div>
+</div>

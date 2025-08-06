@@ -7,6 +7,10 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -24,10 +28,16 @@ public class MessagingServiceImpl implements MessagingService {
     private final JavaMailSender mailSender;
 
     @Override
-    public void sendBookingSuccessMessage(String bookingId, String userId) {
+    public void sendBookingSuccessMessage(String bookingId, String userId, String token) {
         // REST Call to User Service to fetch email and phone
-        String userServiceUrl = "http://localhost:8081/bms/user/userDetails/getUserDetails" + userId;
-        User user = restTemplate.getForObject(userServiceUrl, User.class);
+        String userServiceUrl = "http://bms-api-gateway-service:8080/bms/user/userDetails/getUserDetails" + userId;
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", token);
+        HttpEntity<Void> entity = new HttpEntity<>(headers);
+        ResponseEntity<User> response = restTemplate.exchange(
+                userServiceUrl, HttpMethod.GET, entity, User.class
+        );
+        User user = response.getBody();
         if (user == null) return;
         String subject = "Your Booking is Confirmed!";
         String message = String.format("Hi %s,\n\nYour booking (booking Id: %d) for movie is confirmed.\nThank you!",

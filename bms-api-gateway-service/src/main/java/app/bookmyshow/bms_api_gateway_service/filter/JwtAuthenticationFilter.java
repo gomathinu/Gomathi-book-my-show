@@ -14,6 +14,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import java.nio.charset.StandardCharsets;
+
 @Component
 public class JwtAuthenticationFilter implements GatewayFilter {
 
@@ -39,7 +41,7 @@ public class JwtAuthenticationFilter implements GatewayFilter {
         }
         String token = authHeader.substring(7);
         try {
-            Claims claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
+            Claims claims = Jwts.parser().setSigningKey(secret.getBytes(StandardCharsets.UTF_8)).parseClaimsJws(token).getBody();
             String mobile = claims.getSubject();
             ServerHttpRequest modifiedRequest = request.mutate()
                     .header("X-User-Mobile", mobile)

@@ -30,7 +30,7 @@ public class PaymentServiceImpl implements PaymentService {
     private static final Logger log = LoggerFactory.getLogger(PaymentServiceImpl.class);
 
     @Override
-    public Payment initiatePayment(Payment payment) {
+    public Payment initiatePayment(Payment payment,String token) {
         payment.setStatus(PaymentStatus.PENDING);
         payment.setTimestamp(LocalDateTime.now());
         boolean success = checkPaymentStatusFromPaymentGateway(payment);
@@ -43,7 +43,8 @@ public class PaymentServiceImpl implements PaymentService {
                 "userId", saved.getUserId(),
                 "amount", saved.getAmount(),
                 "status", saved.getStatus().toString(),
-                "timestamp", saved.getTimestamp()
+                "timestamp", saved.getTimestamp(),
+                "token", token
         );
         if (success) {
             log.debug("Payment status is success");

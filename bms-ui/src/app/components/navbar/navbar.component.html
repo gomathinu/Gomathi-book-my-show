@@ -1,7 +1,10 @@
-<nav>
-  <a routerLink="/login">Login</a> |
-  <a routerLink="/register">Register</a> |
-  <a routerLink="/search">Movies</a> |
-  <a routerLink="/booking">Booking</a> |
-  <a routerLink="/payment">Payment</a>
+<nav class="navbar">
+  <a routerLink="/movies" *ngIf="isLoggedIn()">Movies</a>
+  <a routerLink="/booking" *ngIf="isLoggedIn()">Booking</a>
+  <a routerLink="/payment" *ngIf="isLoggedIn()">Payment</a>
+
+  <a routerLink="/login" *ngIf="!isLoggedIn()">Login</a>
+  <a routerLink="/register" *ngIf="!isLoggedIn()">Register</a>
+
+  <button (click)="logout()" *ngIf="isLoggedIn()">Logout</button>
 </nav>

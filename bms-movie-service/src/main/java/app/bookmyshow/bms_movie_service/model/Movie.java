@@ -27,4 +27,5 @@ public class Movie {
     private int size = 10;
     private String sortBy = "releaseDate";
     private String sortDir = "asc";
+    private String posterUrl;
 }

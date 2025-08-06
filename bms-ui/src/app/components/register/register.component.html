@@ -1,6 +1,10 @@
-<form (ngSubmit)="register()">
-  <input [(ngModel)]="user.name" name="name" placeholder="Name" required />
-  <input [(ngModel)]="user.mobile" name="mobile" placeholder="Mobile" required />
-  <input [(ngModel)]="user.email" name="email" placeholder="Email" required />
-  <button type="submit">Register</button>
-</form>
+<div class="register-container">
+  <h2>Register</h2>
+  <form (ngSubmit)="register()">
+    <label for="mobile">Mobile Number</label>
+    <input id="mobile" name="mobile" type="text" [(ngModel)]="mobile" required />
+
+    <button type="submit">Register</button>
+  </form>
+  <p class="link">Already have an account? <a routerLink="/login">Login here</a></p>
+</div>

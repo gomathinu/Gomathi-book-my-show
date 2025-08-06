@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class BookingService {
-  private baseUrl = 'http://localhost:8080/bms/booking/bookingDetails';
+  private baseUrl = 'http://bms-booking-service:8080/bms/booking/bookingDetails';
 
   constructor(private http: HttpClient) {}
 

@@ -28,7 +28,8 @@ public class BookingConfirmedUser {
             JsonNode node = mapper.readTree(message);
             String bookingId = node.get("bookingId").toString();
             String userId = node.get("userId").toString();
-            messagingService.sendBookingSuccessMessage(bookingId, userId);
+            String token = node.get("token").toString();
+            messagingService.sendBookingSuccessMessage(bookingId, userId, token);
         } catch (Exception e) {
             log.error(e.getMessage());
         }

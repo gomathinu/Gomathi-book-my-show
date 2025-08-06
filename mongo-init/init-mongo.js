@@ -56,7 +56,8 @@ db.movie.insertMany([
         page: 0,
         size: 10,
         sortBy: "releaseDate",
-        sortDir: "asc"
+        sortDir: "asc",
+        posterUrl: "assets/SitaRamam.jpg"
     },
     {
         movieId: "102",
@@ -70,7 +71,8 @@ db.movie.insertMany([
         page: 0,
         size: 10,
         sortBy: "releaseDate",
-        sortDir: "asc"
+        sortDir: "asc",
+        posterUrl: "assets/baahubali.jpg"
     }
 ]);
 

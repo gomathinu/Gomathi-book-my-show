@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-  private baseUrl = 'http://localhost:8080/bms/user/userDetails';
+  private baseUrl = 'http://bms-user-service:8080/bms/user/userDetails';
 
   constructor(private http: HttpClient) {}
 

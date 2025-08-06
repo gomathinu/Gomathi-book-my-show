@@ -10,7 +10,7 @@ export interface SeatLockRequest {
 
 @Injectable({ providedIn: 'root' })
 export class MovieService {
-  private baseUrl = 'http://localhost:8080/bms/movie/movieDetails';
+  private baseUrl = 'http://bms-movie-service:8080/bms/movie/movieDetails';
 
   constructor(private http: HttpClient) {}
 
@@ -19,10 +19,10 @@ export class MovieService {
     return this.http.get<any[]>(`${this.baseUrl}/movies-by-city`, { params });
   }
 
-  /*getMoviesByCinema(cinemaName: string): Observable<any> {
+  getMoviesByCinema(cinemaName: string): Observable<any> {
     const params = new HttpParams().set('cinemaName', cinemaName);
     return this.http.get<any[]>(`${this.baseUrl}/movies-by-cinema`, { params });
-  }*/
+  }
 
   getShowsByMovieAndCinema(movieName: string, cinemaName: string): Observable<any> {
     const params = new HttpParams();

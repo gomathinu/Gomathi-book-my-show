@@ -20,8 +20,8 @@ public class PaymentController {
     private final PaymentService paymentService;
 
     @PostMapping("/initiatePayment")
-    public ResponseEntity<Payment> initiatePayment(@RequestBody Payment payment) {
+    public ResponseEntity<Payment> initiatePayment(@RequestBody Payment payment,@RequestHeader("Authorization") String token) {
         log.info("PaymentController: initiatePayment() is called");
-        return ResponseEntity.ok(paymentService.initiatePayment(payment));
+        return ResponseEntity.ok(paymentService.initiatePayment(payment,token));
     }
 }

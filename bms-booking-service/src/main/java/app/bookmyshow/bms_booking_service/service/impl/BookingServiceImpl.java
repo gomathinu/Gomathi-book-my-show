@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -32,12 +34,18 @@ public class BookingServiceImpl implements BookingService {
     private final KafkaTopics topics;
 
     @Override
-    public Booking initiateBooking(Booking booking) {
+    public Booking initiateBooking(Booking booking,String token) {
         //Lock seats via Movie Service
         //TODO: While locking seats could introduce timer
-        var response = restTemplate.postForEntity(
-                "http://localhost:8082/bms/movies/movieDetails/lock-seats",
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", token);
+        HttpEntity<Map<String, Object>> requestEntity = new HttpEntity<>(
                 Map.of("showId", booking.getShowId(), "seats", booking.getSeatNumbers()),
+                headers
+        );
+        var response = restTemplate.postForEntity(
+                "http://bms-api-gateway-service:8080/bms/movie/movieDetails/lock-seats",
+                requestEntity,
                 Boolean.class
         );
         if (Boolean.FALSE.equals(response.getBody())) {
@@ -70,11 +78,13 @@ public class BookingServiceImpl implements BookingService {
     public void handlePaymentSuccess(Map<String, Object> event) {
         String bookingId = (String) event.get("bookingId");
         String userId = (String) event.get("userId");
+        String token = (String) event.get("token");
         confirmBooking(bookingId);
         // Notify messaging service
         Map<String, Object> bookingDetailsRequest = Map.of(
                 "bookingId", bookingId,
-                "userId", userId
+                "userId", userId,
+                "token", token
         );
         kafkaTemplate.send(topics.getBookingConfirmed(), bookingDetailsRequest);
     }

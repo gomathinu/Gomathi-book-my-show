@@ -20,11 +20,9 @@ Booking: 8083
 Payment: 8085
 
 To run in postman, please use below to generate token
-http://localhost:8081/bms/user/userDetails/getToken
+http://localhost:8080/bms/user/userDetails/getToken
 {
 "mobile":"9876543210",
 "otp":"123"
 }
 Copy that token into your postman environment as jwt_token, for all post-login services
-
-(Could have Mongo compass and data in bookmyshow db and collections in it to run services in local with data)

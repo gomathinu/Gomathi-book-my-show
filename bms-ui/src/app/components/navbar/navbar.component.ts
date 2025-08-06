@@ -1,15 +1,21 @@
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Component, computed, signal } from '@angular/core';
+import { Router } from '@angular/router';
+import { NgIf } from '@angular/common'; 
 
 @Component({
-  selector: 'app-navbar.component',
+  selector: 'app-navbar',
+  standalone: true,
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.less'],
-  standalone: true,
-  imports: [FormsModule,CommonModule,RouterModule]
+  imports: [NgIf]
 })
 export class NavbarComponent {
+  isLoggedIn = computed(() => !!localStorage.getItem('token'));
 
+  constructor(private router: Router) {}
+
+  logout(): void {
+    localStorage.clear();
+    this.router.navigate(['/login']);
+  }
 }

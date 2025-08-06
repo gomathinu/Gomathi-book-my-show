@@ -1,25 +1,36 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { MovieService } from '../../services/movie.service';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-show-selection',
-  templateUrl: './show-selection.component.html',
-  styleUrls: ['./show-selection.component.less'],
   standalone: true,
-  imports: [FormsModule,CommonModule,RouterModule]
+  imports: [CommonModule],
+  templateUrl: './show-selection.component.html',
+  styleUrls: ['./show-selection.component.less']
 })
-export class ShowSelectionComponent {
-  movie = '';
-  cinema = '';
+export class ShowSelectionComponent implements OnInit {
+  movieId: string = '';
+  cinemaId: string = '';
   shows: any[] = [];
 
-  constructor(private movieService: MovieService) {}
+  constructor(private movieService: MovieService, private router: Router) {}
 
-  getShows() {
-    this.movieService.getShowsByMovieAndCinema(this.movie, this.cinema)
-      .subscribe(data => this.shows = data);
+  ngOnInit(): void {
+    this.movieId = localStorage.getItem('selectedMovieId') ?? '';
+    this.cinemaId = localStorage.getItem('selectedCinemaId') ?? '';
+
+    if (this.movieId && this.cinemaId) {
+      this.movieService.getShowsByMovieAndCinema(this.movieId, this.cinemaId).subscribe(data => {
+        this.shows = data;
+      });
+    }
+  }
+
+  selectShow(show: any): void {
+    localStorage.setItem('selectedShowId', show.id);
+    this.router.navigate(['/seats']);
   }
 }
