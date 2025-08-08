@@ -1,5 +1,14 @@
-<form (ngSubmit)="verify()">
-  <input [(ngModel)]="mobile" name="mobile" placeholder="Mobile" required />
-  <input [(ngModel)]="otp" name="otp" placeholder="OTP" required />
-  <button type="submit">Verify OTP</button>
-</form>
+<div class="otp-container">
+  <h2>Verify OTP</h2>
+
+  <form (ngSubmit)="verifyOtp()">
+    <div>
+      <label>OTP sent to {{ mobile }} (eg:123456)</label>
+      <input type="text" [(ngModel)]="otp" name="otp" required />
+    </div>
+
+    <button type="submit">Verify</button>
+  </form>
+
+  <p *ngIf="message" class="error">{{ message }}</p>
+</div>

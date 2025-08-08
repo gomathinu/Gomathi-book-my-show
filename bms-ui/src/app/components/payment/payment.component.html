@@ -1,5 +1,15 @@
-<form (ngSubmit)="pay()">
-  <input [(ngModel)]="paymentDetails.bookingId" name="bookingId" placeholder="Booking ID" />
-  <input [(ngModel)]="paymentDetails.amount" name="amount" type="number" />
-  <button type="submit">Pay</button>
-</form>
+<div class="payment-container">
+  <h2>Payment</h2>
+
+  <div *ngIf="statusMessage" class="status">{{ statusMessage }}</div>
+
+  <div *ngIf="!statusMessage && bookingId">
+    <p><strong>Booking ID:</strong> {{ bookingId }}</p>
+
+    <button (click)="initiatePayment()">Pay Now</button>
+
+    <div *ngIf="showSpinner" class="spinner">
+      <p>Processing Payment...</p>
+    </div>
+  </div>
+</div>

@@ -1,10 +1,14 @@
 <nav class="navbar">
-  <a routerLink="/movies" *ngIf="isLoggedIn()">Movies</a>
-  <a routerLink="/booking" *ngIf="isLoggedIn()">Booking</a>
-  <a routerLink="/payment" *ngIf="isLoggedIn()">Payment</a>
+  <div class="navbar-brand">
+    <a routerLink="/">BookMyShow</a>
+  </div>
 
-  <a routerLink="/login" *ngIf="!isLoggedIn()">Login</a>
-  <a routerLink="/register" *ngIf="!isLoggedIn()">Register</a>
-
-  <button (click)="logout()" *ngIf="isLoggedIn()">Logout</button>
+  <ul class="navbar-menu">
+    <li *ngIf="isLoggedIn"><a routerLink="/movies">Movies</a></li>
+     <li *ngIf="isLoggedIn"><a routerLink="/booking">Booking</a></li>
+      <li *ngIf="isLoggedIn"><a routerLink="/payment">Payment</a></li>
+    <li *ngIf="!isLoggedIn"><a routerLink="/login">Login</a></li>
+    <li *ngIf="!isLoggedIn"><a routerLink="/register">Register</a></li>
+    <li *ngIf="isLoggedIn"><a (click)="logout()">Logout</a></li>
+  </ul>
 </nav>

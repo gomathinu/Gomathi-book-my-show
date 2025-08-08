@@ -1,26 +1,45 @@
 import { Component } from '@angular/core';
-import { UserService } from '../../services/user.service';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-verify-otp',
-  templateUrl: './verify-otp.component.html',
-  styleUrls: ['./verify-otp.component.less'],
   standalone: true,
-  imports: [FormsModule,CommonModule,RouterModule]
+  imports: [CommonModule, FormsModule],
+  templateUrl: './verify-otp.component.html',
+  styleUrls: ['./verify-otp.component.less']
 })
 export class VerifyOtpComponent {
-  mobile = '';
-  otp = '';
+  otp: string = '';
+  mobile: string | null = localStorage.getItem('mobile');
+  message: string = '';
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router: Router) {}
 
-  verify() {
+  verifyOtp(): void {
+    if (!this.otp || !this.mobile) {
+      this.message = 'Mobile or OTP missing.';
+      return;
+    }
     localStorage.setItem('mobile',this.mobile);
-    this.userService.verifyOtp(this.mobile, this.otp).subscribe(response => {
-      localStorage.setItem('token', response.token);
-    });
+    //TODO: here after service is called, before getting response and setting token, auth interceptor is called and header is set
+    this.userService.verifyOtp(this.mobile, this.otp).subscribe({
+      next: (res: any) => {
+        if (res?.token) {
+          localStorage.setItem('token', res.token);
+          // Force token write to complete before navigating, else it results in 401 navigated without token set
+          setTimeout(() => {
+            this.router.navigate(['/movies']);
+          }, 50);
+        } else {
+          this.message = 'Token missing in response.';
+        }
+      },
+      error: () => {
+        this.message = 'Invalid OTP. Try again.';
+      }
+  });
   }
 }

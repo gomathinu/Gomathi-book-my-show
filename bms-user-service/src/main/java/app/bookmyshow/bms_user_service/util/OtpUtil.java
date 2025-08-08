@@ -6,6 +6,7 @@ import java.util.Random;
 @Component
 public class OtpUtil {
     public String generateOtp() {
-        return String.valueOf(new Random());
+        return "123456";
+        //return String.valueOf(new Random());
     }
 }

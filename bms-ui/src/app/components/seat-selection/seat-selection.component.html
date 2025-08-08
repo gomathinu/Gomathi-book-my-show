@@ -1,16 +1,19 @@
-<div class="seat-selection-form">
-  <h2>Lock Seats</h2>
+<div class="seat-selection-container">
+  <h2>Select Your Seats</h2>
 
-  <label>Show ID:</label>
-  <input type="number" [(ngModel)]="showId" name="showId" placeholder="Enter Show ID" />
+  <div *ngIf="message" class="error">{{ message }}</div>
 
-  <label>Seat Numbers (comma-separated):</label>
-  <input type="text" [(ngModel)]="seatNumbersInput" name="seatNumbers" placeholder="E.g. A1, A2, B3" />
+  <div class="seats-grid">
+    <div
+      class="seat"
+      *ngFor="let seat of seats"
+      [class.booked]="seat.booked"
+      [class.selected]="selectedSeats.includes(seat.seatNumber)"
+      (click)="!seat.booked && toggleSeat(seat.seatNumber)"
+    >
+      {{ seat.seatNumber }}
+    </div>
+  </div>
 
-  <label>User ID:</label>
-  <input type="number" [(ngModel)]="userId" name="userId" placeholder="Enter User ID" />
-
-  <button (click)="lockSeats()">Lock Seats</button>
-
-  <p class="status">{{ lockStatus }}</p>
+  <button (click)="confirmSeats()">Confirm Seats</button>
 </div>

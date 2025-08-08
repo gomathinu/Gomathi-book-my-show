@@ -1,4 +1,13 @@
-<form (ngSubmit)="book()">
-  <!-- Assume data is filled -->
-  <button type="submit">Confirm Booking</button>
-</form>
+<div class="booking-container">
+  <h2>Confirm Booking</h2>
+
+  <div *ngIf="bookingMessage" class="error">{{ bookingMessage }}</div>
+
+  <div *ngIf="!bookingMessage">
+    <p><strong>Show ID:</strong> {{ showId }}</p>
+    <p><strong>Seats:</strong> {{ selectedSeats.join(', ') }}</p>
+    <p><strong>Total Seats:</strong> {{ seatCount }}</p>
+
+    <button (click)="confirmBooking()">Book Now</button>
+  </div>
+</div>

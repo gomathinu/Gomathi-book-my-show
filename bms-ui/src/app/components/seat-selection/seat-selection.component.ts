@@ -1,41 +1,58 @@
-import { Component } from '@angular/core';
-import { MovieService, SeatLockRequest } from '../../services/movie.service';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { MovieService } from '../../services/movie.service';
 
 @Component({
   selector: 'app-seat-selection',
-  templateUrl: './seat-selection.component.html',
-  styleUrls: ['./seat-selection.component.less'],
   standalone: true,
-  imports: [FormsModule,CommonModule,RouterModule]
+  imports: [CommonModule, FormsModule],
+  templateUrl: './seat-selection.component.html',
+  styleUrls: ['./seat-selection.component.less']
 })
-export class SeatSelectionComponent {
+export class SeatSelectionComponent implements OnInit {
+  showId: string | null = '';
+  seats: any[] = [];
+  selectedSeats: string[] = [];
+  message = '';
 
-  showId: number = 0;
-  seatNumbersInput: string = '';
-  userId: number = 0;
-  lockStatus: string = '';
+  constructor(private movieService: MovieService, private router: Router) {}
 
-  constructor(private movieService: MovieService) {}
+  ngOnInit(): void {
+    this.showId = localStorage.getItem('showId');
+    if (!this.showId) {
+      this.message = 'Show not selected.';
+      return;
+    }
 
-  lockSeats(): void {
-    const seatNumbers = this.seatNumbersInput.split(',').map(seat => seat.trim());
-
-    const request: SeatLockRequest = {
-      showId: this.showId,
-      seatNumbers: seatNumbers,
-      userId: this.userId
-    };
-
-    this.movieService.lockSeats(request).subscribe({
-      next: (success) => {
-        this.lockStatus = success ? 'Seats successfully locked!' : 'Failed to lock seats.';
+    this.movieService.getSeatsByShow(this.showId).subscribe({
+      next: (res: any) => {
+        this.seats = res;
       },
       error: () => {
-        this.lockStatus = 'Error occurred while locking seats.';
+        this.message = 'Failed to load seats.';
       }
     });
+  }
+
+  toggleSeat(seatNumber: string): void {
+    if (this.selectedSeats.includes(seatNumber)) {
+      this.selectedSeats = this.selectedSeats.filter(s => s !== seatNumber);
+    } else {
+      this.selectedSeats.push(seatNumber);
+    }
+  }
+
+  confirmSeats(): void {
+    if (this.selectedSeats.length === 0) {
+      this.message = 'Please select at least one seat.';
+      return;
+    }
+
+    localStorage.setItem('selectedSeats', JSON.stringify(this.selectedSeats));
+    localStorage.setItem('seatCount', this.selectedSeats.length.toString());
+
+    this.router.navigate(['/booking']);
   }
 }

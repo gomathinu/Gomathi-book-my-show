@@ -1,7 +1,7 @@
 <div class="login-container">
   <h2>Login</h2>
   <form (ngSubmit)="login()">
-    <label for="mobile">Mobile Number</label>
+    <label for="mobile">Mobile Number (eg:9876543210)</label>
     <input id="mobile" name="mobile" type="text" [(ngModel)]="mobile" required />
     <button type="submit">Send OTP</button>
   </form>

@@ -9,7 +9,7 @@ import {
   HttpTestingController
 } from '@angular/common/http/testing';
 
-import { AuthInterceptor } from '../interceptors/auth.interceptor';
+import { AuthInterceptor } from './auth.interceptor';
 
 describe('AuthInterceptor', () => {
   let httpClient: HttpClient;

@@ -10,34 +10,35 @@ export interface SeatLockRequest {
 
 @Injectable({ providedIn: 'root' })
 export class MovieService {
-  private baseUrl = 'http://bms-movie-service:8080/bms/movie/movieDetails';
+  private baseUrl = 'http://localhost:8080/bms/movie/movieDetails';
 
   constructor(private http: HttpClient) {}
 
   getMoviesByCity(cityName: string): Observable<any> {
     const params = new HttpParams().set('cityName', cityName);
-    return this.http.get<any[]>(`${this.baseUrl}/movies-by-city`, { params });
+    return this.http.get<any[]>(`${this.baseUrl}/movies-by-city`, { params, withCredentials: true });
   }
 
   getMoviesByCinema(cinemaName: string): Observable<any> {
     const params = new HttpParams().set('cinemaName', cinemaName);
-    return this.http.get<any[]>(`${this.baseUrl}/movies-by-cinema`, { params });
+    return this.http.get<any[]>(`${this.baseUrl}/movies-by-cinema`, { params, withCredentials: true });
   }
 
   getShowsByMovieAndCinema(movieName: string, cinemaName: string): Observable<any> {
-    const params = new HttpParams();
-    params.set('movieName', movieName);
-    params.set('cinemaName', cinemaName);
-    return this.http.get<any[]>(`${this.baseUrl}/shows-by-movie-cinema`, { params });
+    let params = new HttpParams()
+    .set('movieName', movieName)
+    .set('cinemaName', cinemaName);
+    return this.http.get<any[]>(`${this.baseUrl}/shows-by-movie-cinema`, { params, withCredentials: true });
   }
 
   getSeatsByShow(showId: string): Observable<any> {
-    const params = new HttpParams().set('showId', showId);
-    return this.http.get<any[]>(`${this.baseUrl}/seats-by-show`, { params });
+    let params = new HttpParams().set('showId', showId);
+    return this.http.get<any[]>(`${this.baseUrl}/seats-by-show`, { params, withCredentials: true });
   }
 
   lockSeats(request: SeatLockRequest): Observable<boolean> {
-    return this.http.post<boolean>(`${this.baseUrl}/lock-seats`, request);
+    //responseType: 'text' could be added when boolean taken as string
+    return this.http.post<boolean>(`${this.baseUrl}/lock-seats`, request, {withCredentials: true});
   }
 
 }
