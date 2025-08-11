@@ -20,7 +20,7 @@ export class SeatSelectionComponent implements OnInit {
   constructor(private movieService: MovieService, private router: Router) {}
 
   ngOnInit(): void {
-    this.showId = localStorage.getItem('showId');
+    this.showId = localStorage.getItem('selectedShowId');
     if (!this.showId) {
       this.message = 'Show not selected.';
       return;

@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 public class Payment {
 
     @Id
+    private String _id;
     private String paymentId;
     private String bookingId;
     private String userId;

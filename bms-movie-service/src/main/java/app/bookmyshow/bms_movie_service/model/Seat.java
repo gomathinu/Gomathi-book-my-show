@@ -18,6 +18,7 @@ import java.util.List;
 @Builder
 public class Seat {
     @Id
+    private String _id;
     private String seatId;
     private String seatNumber;
     private boolean available;

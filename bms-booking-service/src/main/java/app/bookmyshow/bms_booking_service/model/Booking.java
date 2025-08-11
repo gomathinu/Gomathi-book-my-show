@@ -18,6 +18,7 @@ import java.util.List;
 @Builder
 public class Booking {
     @Id
+    private String _id;
     private String bookingId;
     private String userId;
     private String showId;

@@ -14,6 +14,8 @@ import { FormsModule } from '@angular/forms';
 export class ShowSelectionComponent implements OnInit {
   movieId: string = '';
   cinemaId: string = '';
+  movieTitle: string = '';
+  cinemaName: string = '';
   shows: any[] = [];
 
   constructor(private movieService: MovieService, private router: Router) {}
@@ -21,16 +23,18 @@ export class ShowSelectionComponent implements OnInit {
   ngOnInit(): void {
     this.movieId = localStorage.getItem('selectedMovieId') ?? '';
     this.cinemaId = localStorage.getItem('selectedCinemaId') ?? '';
+    this.movieTitle = localStorage.getItem('selectedMovieTitle') ?? '';
+    this.cinemaName = localStorage.getItem('selectedCinemaName') ?? '';
 
     if (this.movieId && this.cinemaId) {
-      this.movieService.getShowsByMovieAndCinema(this.movieId, this.cinemaId).subscribe(data => {
+      this.movieService.getShowsByMovieAndCinema(this.movieTitle, this.cinemaName).subscribe(data => {
         this.shows = data;
       });
     }
   }
 
   selectShow(show: any): void {
-    localStorage.setItem('selectedShowId', show.id);
+    localStorage.setItem('selectedShowId', show.showId);
     this.router.navigate(['/seats']);
   }
 }

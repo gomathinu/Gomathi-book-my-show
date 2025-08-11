@@ -43,7 +43,7 @@ export class PaymentComponent implements OnInit {
           localStorage.removeItem('bookingId');
           localStorage.removeItem('selectedSeats');
           localStorage.removeItem('seatCount');
-          localStorage.removeItem('showId');
+          localStorage.removeItem('selectedShowId');
         }
       },
       error: () => {

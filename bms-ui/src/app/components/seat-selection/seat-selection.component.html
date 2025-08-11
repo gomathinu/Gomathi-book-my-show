@@ -1,19 +1,18 @@
 <div class="seat-selection-container">
   <h2>Select Your Seats</h2>
-
-  <div *ngIf="message" class="error">{{ message }}</div>
-
+  @if (message) {
+    <div  class="error">{{ message }}</div>
+  }  
   <div class="seats-grid">
-    <div
-      class="seat"
-      *ngFor="let seat of seats"
-      [class.booked]="seat.booked"
-      [class.selected]="selectedSeats.includes(seat.seatNumber)"
-      (click)="!seat.booked && toggleSeat(seat.seatNumber)"
-    >
-      {{ seat.seatNumber }}
-    </div>
+     @for (seat of seats; track seat.seatId) {
+      <div
+        class="seat"
+        [class.booked]="!seat.available"
+        [class.selected]="selectedSeats.includes(seat.seatNumber)"
+        (click)="seat.available && toggleSeat(seat.seatNumber)">
+          {{ seat.seatNumber }}
+      </div>
+     }    
   </div>
-
   <button (click)="confirmSeats()">Confirm Seats</button>
 </div>

@@ -57,6 +57,7 @@ public class CinemaMovieShowRepositoryImpl implements CinemaMovieShowRepository 
                 Aggregation.lookup("movie", "shows.movieId", "movieId", "movieDetails"),
                 Aggregation.unwind("movieDetails"),
                 Aggregation.match(Criteria.where("movieDetails.title").is(movieName)),
+                Aggregation.lookup("seat", "shows.showId", "showId", "seatList"),
                 Aggregation.replaceRoot("shows")
         );
         return mongoTemplate.aggregate(aggregation, "cinema", Show.class).getMappedResults();

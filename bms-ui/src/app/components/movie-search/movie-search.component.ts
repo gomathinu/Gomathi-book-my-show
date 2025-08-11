@@ -11,13 +11,15 @@ import { MovieService } from '../../services/movie.service';
   styleUrls: ['./movie-search.component.less']
 })
 export class MovieSearchComponent implements OnInit {
+  //hardcoding cities and cinemas as of now, could get from backend call
   cities = ['Chennai', 'Mumbai', 'Bangalore'];
+  cinemas = ['PVR','Luxe'];
   selectedCity = '';
   movies: any[] = [];
 
   constructor(private movieService: MovieService, private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   onCitySelect(event: Event): void {
     const selectedCity = (event.target as HTMLSelectElement)?.value || '';
@@ -33,7 +35,10 @@ export class MovieSearchComponent implements OnInit {
   }
 
   selectMovie(movie: any): void {
-    localStorage.setItem('selectedMovieId', movie.id);
+    localStorage.setItem('selectedMovieId', movie.movieId);
+    localStorage.setItem('selectedMovieTitle', movie.title);
+    localStorage.setItem('selectedCinemaId', '1');
+    localStorage.setItem('selectedCinemaName', 'PVR');
     this.router.navigate(['/shows']);
   }
 }

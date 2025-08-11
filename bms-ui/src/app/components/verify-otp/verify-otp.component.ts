@@ -27,12 +27,9 @@ export class VerifyOtpComponent {
     //TODO: here after service is called, before getting response and setting token, auth interceptor is called and header is set
     this.userService.verifyOtp(this.mobile, this.otp).subscribe({
       next: (res: any) => {
-        if (res?.token) {
-          localStorage.setItem('token', res.token);
-          // Force token write to complete before navigating, else it results in 401 navigated without token set
-          setTimeout(() => {
-            this.router.navigate(['/movies']);
-          }, 50);
+        if (res?.jwtToken) {
+          localStorage.setItem('token', res.jwtToken);
+          this.router.navigate(['/movies']);
         } else {
           this.message = 'Token missing in response.';
         }

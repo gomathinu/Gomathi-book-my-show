@@ -20,7 +20,7 @@ export class BookingComponent implements OnInit {
   constructor(private bookingService: BookingService, private router: Router) {}
 
   ngOnInit(): void {
-    const showId = localStorage.getItem('showId');
+    const showId = localStorage.getItem('selectedShowId');
     const seatCount = localStorage.getItem('seatCount');
     const selectedSeats = localStorage.getItem('selectedSeats');
 

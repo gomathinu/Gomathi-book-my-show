@@ -20,6 +20,7 @@ import java.util.List;
 @Builder
 public class Show {
     @Id
+    private String _id;
     private String showId;
     private LocalDateTime startTime;
     private List<Seat> seatList;

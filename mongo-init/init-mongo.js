@@ -2,39 +2,48 @@ db = db.getSiblingDB('bookmyshow');
 
 print("init mongo js started executing");
 
+db.movie.drop();
+db.show.drop();
+db.city.drop();
+db.cinema.drop();
+db.user.drop();
+db.seat.drop();
+
+print("All tables initial data deleted");
+
 db.show.insertMany([
     {
         showId: "1",
-        startTime: new Date("2025-07-26T18:00:00Z"),
+        startTime: "2025-07-26T18:00:00",
         seatList: [
-            { seatId:"1", seatNumber: "A1", available: false, showId: "1" },
-            { seatId:"2", seatNumber: "A2", available: false, showId: "1" },
-            { seatId:"3", seatNumber: "B1", available: false, showId: "1" },
-            { seatId:"4", seatNumber: "B2", available: false, showId: "1" }
+            { seatId:"1_1", seatNumber: "A1", available: true, showId: "1" },
+            { seatId:"1_2", seatNumber: "A2", available: true, showId: "1" },
+            { seatId:"1_3", seatNumber: "B1", available: true, showId: "1" },
+            { seatId:"1_4", seatNumber: "B2", available: true, showId: "1" }
         ],
         movieId: "101",
         cinemaId: "1"
     },
     {
         showId: "2",
-        startTime: new Date("2025-07-27T15:30:00Z"),
+        startTime: "2025-07-27T15:30:00",
         seatList: [
-            { seatId:"1", seatNumber: "A1", available: false, showId: "2" },
-            { seatId:"2", seatNumber: "A2", available: false, showId: "2" },
-            { seatId:"3", seatNumber: "B1", available: false, showId: "2" },
-            { seatId:"4", seatNumber: "B2", available: false, showId: "2" }
+            { seatId:"2_1", seatNumber: "A1", available: true, showId: "2" },
+            { seatId:"2_2", seatNumber: "A2", available: true, showId: "2" },
+            { seatId:"2_3", seatNumber: "B1", available: true, showId: "2" },
+            { seatId:"2_4", seatNumber: "B2", available: true, showId: "2" }
         ],
         movieId: "102",
         cinemaId: "1"
     },
     {
         showId: "3",
-        startTime: new Date("2025-07-27T15:30:00Z"),
+        startTime: "2025-07-27T15:30:00",
         seatList: [
-            { seatId:"1", seatNumber: "C1", available: false, showId: "3" },
-            { seatId:"2", seatNumber: "C2", available: false, showId: "3" },
-            { seatId:"3", seatNumber: "D1", available: false, showId: "3" },
-            { seatId:"4", seatNumber: "D2", available: false, showId: "3" }
+            { seatId:"3_1", seatNumber: "C1", available: true, showId: "3" },
+            { seatId:"3_2", seatNumber: "C2", available: true, showId: "3" },
+            { seatId:"3_3", seatNumber: "D1", available: true, showId: "3" },
+            { seatId:"3_4", seatNumber: "D2", available: true, showId: "3" }
         ],
         movieId: "101",
         cinemaId: "2"
@@ -52,7 +61,7 @@ db.movie.insertMany([
         description: "A love story of a army soldier",
         cast: ["Dulquer Salman", "Mrunal Thakur"],
         crew: ["Director","Music Director"],
-        releaseAfter: new Date("2023-01-01"),
+        releaseAfter: "2023-01-01",
         page: 0,
         size: 10,
         sortBy: "releaseDate",
@@ -67,7 +76,7 @@ db.movie.insertMany([
         description: "Story of an immortal king",
         cast: ["Prabhas", "Anushka", "Rana"],
         crew: ["Rajamouli", "Keeravani"],
-        releaseAfter: new Date("2015-01-01"),
+        releaseAfter: "2015-01-01",
         page: 0,
         size: 10,
         sortBy: "releaseDate",
@@ -89,24 +98,24 @@ db.city.insertMany([
                 showList: [
                     {
                         showId: "1",
-                        startTime: new Date("2025-07-26T18:00:00Z"),
+                        startTime: "2025-07-26T18:00:00",
                         seatList: [
-                            { seatId:"1", seatNumber: "A1", available: false, showId: "1" },
-                            { seatId:"2", seatNumber: "A2", available: false, showId: "1" },
-                            { seatId:"3", seatNumber: "B1", available: false, showId: "1" },
-                            { seatId:"4", seatNumber: "B2", available: false, showId: "1" }
+                            { seatId:"1_1", seatNumber: "A1", available: true, showId: "1" },
+                            { seatId:"1_2", seatNumber: "A2", available: true, showId: "1" },
+                            { seatId:"1_3", seatNumber: "B1", available: true, showId: "1" },
+                            { seatId:"1_4", seatNumber: "B2", available: true, showId: "1" }
                         ],
                         movieId: "101",
                         cinemaId: "1"
                     },
                     {
                         showId: "2",
-                        startTime: new Date("2025-07-27T15:30:00Z"),
+                        startTime: "2025-07-27T15:30:00",
                         seatList: [
-                            { seatId:"1", seatNumber: "A1", available: false, showId: "2" },
-                            { seatId:"2", seatNumber: "A2", available: false, showId: "2" },
-                            { seatId:"3", seatNumber: "B1", available: false, showId: "2" },
-                            { seatId:"4", seatNumber: "B2", available: false, showId: "2" }
+                            { seatId:"2_1", seatNumber: "A1", available: true, showId: "2" },
+                            { seatId:"2_2", seatNumber: "A2", available: true, showId: "2" },
+                            { seatId:"2_3", seatNumber: "B1", available: true, showId: "2" },
+                            { seatId:"2_4", seatNumber: "B2", available: true, showId: "2" }
                         ],
                         movieId: "102",
                         cinemaId: "1"
@@ -126,12 +135,12 @@ db.city.insertMany([
                 showList: [
                     {
                         showId: "3",
-                        startTime: new Date("2025-07-27T15:30:00Z"),
+                        startTime: "2025-07-27T15:30:00",
                         seatList: [
-                            { seatId:"1", seatNumber: "C1", available: false, showId: "3" },
-                            { seatId:"2", seatNumber: "C2", available: false, showId: "3" },
-                            { seatId:"3", seatNumber: "D1", available: false, showId: "3" },
-                            { seatId:"4", seatNumber: "D2", available: false, showId: "3" }
+                            { seatId:"3_1", seatNumber: "C1", available: true, showId: "3" },
+                            { seatId:"3_2", seatNumber: "C2", available: true, showId: "3" },
+                            { seatId:"3_3", seatNumber: "D1", available: true, showId: "3" },
+                            { seatId:"3_4", seatNumber: "D2", available: true, showId: "3" }
                         ],
                         movieId: "101",
                         cinemaId: "2"
@@ -151,24 +160,24 @@ db.cinema.insertMany([
         showList: [
             {
                 showId: "1",
-                startTime: new Date("2025-07-26T18:00:00Z"),
+                startTime: "2025-07-26T18:00:00",
                 seatList: [
-                    { seatId:"1", seatNumber: "A1", available: false, showId: "1" },
-                    { seatId:"2", seatNumber: "A2", available: false, showId: "1" },
-                    { seatId:"3", seatNumber: "B1", available: false, showId: "1" },
-                    { seatId:"4", seatNumber: "B2", available: false, showId: "1" }
+                    { seatId:"1_1", seatNumber: "A1", available: true, showId: "1" },
+                    { seatId:"1_2", seatNumber: "A2", available: true, showId: "1" },
+                    { seatId:"1_3", seatNumber: "B1", available: true, showId: "1" },
+                    { seatId:"1_4", seatNumber: "B2", available: true, showId: "1" }
                 ],
                 movieId: "101",
                 cinemaId: "1"
             },
             {
                 showId: "2",
-                startTime: new Date("2025-07-27T15:30:00Z"),
+                startTime: "2025-07-27T15:30:00",
                 seatList: [
-                    { seatId:"1", seatNumber: "A1", available: false, showId: "2" },
-                    { seatId:"2", seatNumber: "A2", available: false, showId: "2" },
-                    { seatId:"3", seatNumber: "B1", available: false, showId: "2" },
-                    { seatId:"4", seatNumber: "B2", available: false, showId: "2" }
+                    { seatId:"2_1", seatNumber: "A1", available: true, showId: "2" },
+                    { seatId:"2_2", seatNumber: "A2", available: true, showId: "2" },
+                    { seatId:"2_3", seatNumber: "B1", available: true, showId: "2" },
+                    { seatId:"2_4", seatNumber: "B2", available: true, showId: "2" }
                 ],
                 movieId: "102",
                 cinemaId: "1"
@@ -182,12 +191,12 @@ db.cinema.insertMany([
         showList: [
             {
                 showId: "3",
-                startTime: new Date("2025-07-27T15:30:00Z"),
+                startTime: "2025-07-27T15:30:00",
                 seatList: [
-                    { seatId:"1", seatNumber: "C1", available: false, showId: "3" },
-                    { seatId:"2", seatNumber: "C2", available: false, showId: "3" },
-                    { seatId:"3", seatNumber: "D1", available: false, showId: "3" },
-                    { seatId:"4", seatNumber: "D2", available: false, showId: "3" }
+                    { seatId:"3_1", seatNumber: "C1", available: true, showId: "3" },
+                    { seatId:"3_2", seatNumber: "C2", available: true, showId: "3" },
+                    { seatId:"3_3", seatNumber: "D1", available: true, showId: "3" },
+                    { seatId:"3_4", seatNumber: "D2", available: true, showId: "3" }
                 ],
                 movieId: "101",
                 cinemaId: "2"
@@ -218,18 +227,18 @@ db.user.insertMany([
 print("User initial data inserted");
 
 db.seat.insertMany([
-    { seatId:"1", seatNumber: "A1", available: false, showId: "1" },
-    { seatId:"2", seatNumber: "A2", available: false, showId: "1" },
-    { seatId:"3", seatNumber: "B1", available: false, showId: "1" },
-    { seatId:"4", seatNumber: "B2", available: false, showId: "1" },
-    { seatId:"1", seatNumber: "A1", available: false, showId: "2" },
-    { seatId:"2", seatNumber: "A2", available: false, showId: "2" },
-    { seatId:"3", seatNumber: "B1", available: false, showId: "2" },
-    { seatId:"4", seatNumber: "B2", available: false, showId: "2" },
-    { seatId:"1", seatNumber: "C1", available: false, showId: "3" },
-    { seatId:"2", seatNumber: "C2", available: false, showId: "3" },
-    { seatId:"3", seatNumber: "D1", available: false, showId: "3" },
-    { seatId:"4", seatNumber: "D2", available: false, showId: "3" }
+    { seatId:"1_1", seatNumber: "A1", available: true, showId: "1" },
+    { seatId:"1_2", seatNumber: "A2", available: true, showId: "1" },
+    { seatId:"1_3", seatNumber: "B1", available: true, showId: "1" },
+    { seatId:"1_4", seatNumber: "B2", available: true, showId: "1" },
+    { seatId:"2_1", seatNumber: "A1", available: true, showId: "2" },
+    { seatId:"2_2", seatNumber: "A2", available: true, showId: "2" },
+    { seatId:"2_3", seatNumber: "B1", available: true, showId: "2" },
+    { seatId:"2_4", seatNumber: "B2", available: true, showId: "2" },
+    { seatId:"3_1", seatNumber: "C1", available: true, showId: "3" },
+    { seatId:"3_2", seatNumber: "C2", available: true, showId: "3" },
+    { seatId:"3_3", seatNumber: "D1", available: true, showId: "3" },
+    { seatId:"3_4", seatNumber: "D2", available: true, showId: "3" }
 ]);
 
 print("Seat initial data inserted");

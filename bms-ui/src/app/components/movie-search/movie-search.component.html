@@ -6,9 +6,14 @@
   </select>
 </div>
 
+<!--Hardcoding cinema as of now-->
+<div class="city-selector">
+  <label>Cinema:</label>PVR
+</div>
+
 <div class="movies-grid">
   <div class="movie-card" *ngFor="let movie of movies" (click)="selectMovie(movie)">
     <img [src]="movie.posterUrl || 'assets/default-movie.jpg'" alt="{{ movie.title }}" />
-    <h3>{{ movie.name }}</h3>
+    <h3>{{ movie.title }}</h3>
   </div>
 </div>

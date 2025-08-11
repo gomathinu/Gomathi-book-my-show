@@ -19,6 +19,7 @@ import java.util.List;
 @Builder
 public class Cinema {
     @Id
+    private String _id;
     private String cinemaId;
     private String cinemaName;
     private List<Show> showList;
