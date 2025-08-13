@@ -1,4 +1,4 @@
-The project is building Book m show application with Java, Spring boot, Microservices, with Angular as Frontend.
+The project is building Book my show application with Java, Spring boot, Microservices, with Angular as Frontend.
 
 To run this project in local, please follow below steps,
 

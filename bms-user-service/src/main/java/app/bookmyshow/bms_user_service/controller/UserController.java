@@ -4,6 +4,7 @@ import app.bookmyshow.bms_user_service.dto.request.RegisterRequest;
 import app.bookmyshow.bms_user_service.dto.request.SendOtpRequest;
 import app.bookmyshow.bms_user_service.dto.request.VerifyOtpRequest;
 import app.bookmyshow.bms_user_service.dto.response.JwtResponse;
+import app.bookmyshow.bms_user_service.dto.response.JwtResponseWithUserDetails;
 import app.bookmyshow.bms_user_service.model.User;
 import app.bookmyshow.bms_user_service.service.AuthService;
 import app.bookmyshow.bms_user_service.service.UserService;
@@ -41,7 +42,7 @@ public class UserController {
     }
 
     @PostMapping("/verify-otp")
-    public ResponseEntity<JwtResponse> verifyOtp(@RequestBody VerifyOtpRequest request) {
+    public ResponseEntity<JwtResponseWithUserDetails> verifyOtp(@RequestBody VerifyOtpRequest request) {
         log.info("UserController: verify-otp() is called");
         return ResponseEntity.ok(authService.verifyOtp(request));
     }
@@ -51,7 +52,7 @@ public class UserController {
     public ResponseEntity<JwtResponse> getToken(@RequestBody VerifyOtpRequest request) {
         System.out.println("UserController: getToken() is called");
         log.info("UserController: getToken() is called");
-        return ResponseEntity.ok(authService.verifyOtp(request));
+        return ResponseEntity.ok(authService.getToken(request));
     }
 
     //below api is to get user details for messaging service after booking confirmation

@@ -16,6 +16,8 @@ export class BookingComponent implements OnInit {
   selectedSeats: string[] = [];
   bookingMessage: string = '';
   bookingId: string = '';
+  userId: string = '';
+  totalAmount: number =0.0;
 
   constructor(private bookingService: BookingService, private router: Router) {}
 
@@ -23,11 +25,13 @@ export class BookingComponent implements OnInit {
     const showId = localStorage.getItem('selectedShowId');
     const seatCount = localStorage.getItem('seatCount');
     const selectedSeats = localStorage.getItem('selectedSeats');
+    const userId = localStorage.getItem('userId');
 
-    if (showId && seatCount && selectedSeats) {
+    if (showId && seatCount && selectedSeats && userId) {
       this.showId = showId;
       this.seatCount = parseInt(seatCount);
       this.selectedSeats = JSON.parse(selectedSeats);
+      this.userId = userId;
     } else {
       this.bookingMessage = 'Missing booking data.';
     }
@@ -37,13 +41,16 @@ export class BookingComponent implements OnInit {
     const bookingPayload = {
       showId: this.showId,
       seatCount: this.seatCount,
-      seatNumbers: this.selectedSeats
+      seatNumbers: this.selectedSeats,
+      userId: this.userId
     };
 
     this.bookingService.initiateBooking(bookingPayload).subscribe({
       next: (res: any) => {
         this.bookingId = res.bookingId;
-        localStorage.setItem('bookingId', this.bookingId);
+        localStorage.setItem('bookingId', this.bookingId);  
+        this.totalAmount = res.totalAmount;
+        localStorage.setItem('bookingAmount', this.totalAmount.toString());  
         this.router.navigate(['/payment']);
       },
       error: () => {

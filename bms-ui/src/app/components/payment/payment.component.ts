@@ -14,15 +14,25 @@ export class PaymentComponent implements OnInit {
   bookingId: string = '';
   statusMessage: string = '';
   showSpinner = false;
+  userId: string = '';
+  bookingAmount: number = 0.0;
 
   constructor(private paymentService: PaymentService, private router: Router) {}
 
   ngOnInit(): void {
     const bookingId = localStorage.getItem('bookingId');
+    const userId = localStorage.getItem('userId');
+    const bookingAmount = localStorage.getItem('bookingAmount');
     if (bookingId) {
       this.bookingId = bookingId;
     } else {
       this.statusMessage = 'Missing booking ID.';
+    }
+    if(userId){
+      this.userId = userId;
+    }
+    if(bookingAmount){
+      this.bookingAmount = parseFloat(bookingAmount);
     }
   }
 
@@ -30,7 +40,9 @@ export class PaymentComponent implements OnInit {
     this.showSpinner = true;
 
     const payload = {
-      bookingId: this.bookingId
+      bookingId: this.bookingId,
+      userId: this.userId,
+      totalAmount: this.bookingAmount
     };
 
     this.paymentService.initiatePayment(payload).subscribe({

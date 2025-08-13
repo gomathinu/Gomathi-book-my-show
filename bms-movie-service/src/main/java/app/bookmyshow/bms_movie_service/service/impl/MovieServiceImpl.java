@@ -3,10 +3,7 @@ package app.bookmyshow.bms_movie_service.service.impl;
 import app.bookmyshow.bms_movie_service.model.Movie;
 import app.bookmyshow.bms_movie_service.model.Seat;
 import app.bookmyshow.bms_movie_service.model.Show;
-import app.bookmyshow.bms_movie_service.repository.MovieRepository;
-import app.bookmyshow.bms_movie_service.repository.MovieSearchRepository;
-import app.bookmyshow.bms_movie_service.repository.CinemaMovieShowRepository;
-import app.bookmyshow.bms_movie_service.repository.ShowRepository;
+import app.bookmyshow.bms_movie_service.repository.*;
 import app.bookmyshow.bms_movie_service.service.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -33,6 +30,9 @@ public class MovieServiceImpl implements MovieService {
     private final CinemaMovieShowRepository cinemaMovieShowRepository;
     @Autowired
     private final ShowRepository showRepository;
+    @Autowired
+    private final SeatRepository seatRepository;
+
     @Override
     public List<Movie> getAllMovies() {
         return movieRepository.findAll();
@@ -82,6 +82,7 @@ public class MovieServiceImpl implements MovieService {
                 // Lock seat
                 log.debug("Seat chosen is available: {}",seat.getSeatNumber());
                 seat.setAvailable(false);
+                seatRepository.save(seat);
             }
             updatedSeats.add(seat);
         }

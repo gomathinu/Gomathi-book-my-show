@@ -55,6 +55,11 @@ public class BookingServiceImpl implements BookingService {
         //Create booking with status PENDING
         booking.setStatus(BookingStatus.PENDING);
         booking.setCreatedAt(LocalDateTime.now());
+        //Future enhancement: get userid from local storage in angular, to be set, in any previous call, and pass it in request
+        //Also need to pass seatcount here
+        booking.setBookingId(String.valueOf(Math.random()));
+        //Hardcoded ticket charges here
+        booking.setTotalAmount(Double.valueOf(booking.getSeatNumbers().size()*150));
         return repository.save(booking);
     }
 

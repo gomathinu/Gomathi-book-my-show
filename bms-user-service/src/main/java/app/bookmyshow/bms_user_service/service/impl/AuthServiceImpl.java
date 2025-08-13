@@ -3,6 +3,7 @@ package app.bookmyshow.bms_user_service.service.impl;
 import app.bookmyshow.bms_user_service.dto.request.RegisterRequest;
 import app.bookmyshow.bms_user_service.dto.request.VerifyOtpRequest;
 import app.bookmyshow.bms_user_service.dto.response.JwtResponse;
+import app.bookmyshow.bms_user_service.dto.response.JwtResponseWithUserDetails;
 import app.bookmyshow.bms_user_service.model.User;
 import app.bookmyshow.bms_user_service.repository.UserRepository;
 import app.bookmyshow.bms_user_service.service.AuthService;
@@ -52,7 +53,24 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public JwtResponse verifyOtp(VerifyOtpRequest request) {
+    public JwtResponseWithUserDetails verifyOtp(VerifyOtpRequest request) {
+        User user = userRepository.findByMobile(request.getMobile())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (!request.getOtp().equals(user.getOtp())) {
+            throw new RuntimeException("Invalid OTP");
+        }
+
+        user.setOtpVerified(true);
+        userRepository.save(user);
+        String token = jwtUtil.generateToken(user.getMobile());
+        JwtResponse jwtResponse = new JwtResponse(token);
+        JwtResponseWithUserDetails jwtResponseWithUserDetails = new JwtResponseWithUserDetails(jwtResponse.getJwtToken(), user.getUserId());
+        return jwtResponseWithUserDetails;
+    }
+
+    @Override
+    public JwtResponse getToken(VerifyOtpRequest request) {
         User user = userRepository.findByMobile(request.getMobile())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 

@@ -1,5 +1,6 @@
 package app.bookmyshow.bms_payment_service.controller;
 
+import app.bookmyshow.bms_payment_service.model.Booking;
 import app.bookmyshow.bms_payment_service.model.Payment;
 import app.bookmyshow.bms_payment_service.service.PaymentService;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +21,8 @@ public class PaymentController {
     private final PaymentService paymentService;
 
     @PostMapping("/initiatePayment")
-    public ResponseEntity<Payment> initiatePayment(@RequestBody Payment payment,@RequestHeader("Authorization") String token) {
+    public ResponseEntity<Payment> initiatePayment(@RequestBody Booking booking, @RequestHeader("Authorization") String token) {
         log.info("PaymentController: initiatePayment() is called");
-        return ResponseEntity.ok(paymentService.initiatePayment(payment,token));
+        return ResponseEntity.ok(paymentService.initiatePayment(booking,token));
     }
 }

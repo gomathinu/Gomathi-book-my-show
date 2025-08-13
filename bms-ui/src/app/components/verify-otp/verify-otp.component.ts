@@ -29,6 +29,9 @@ export class VerifyOtpComponent {
       next: (res: any) => {
         if (res?.jwtToken) {
           localStorage.setItem('token', res.jwtToken);
+          if(res?.userId){
+            localStorage.setItem('userId', res.userId);
+          }
           this.router.navigate(['/movies']);
         } else {
           this.message = 'Token missing in response.';
